@@ -75,7 +75,7 @@ class Keturkampis {
     public function istrizaine () {
         $this->rezultatas=(($this->krastinea)*2 + ($this->krastineb)*2);
         echo "<p>"."Kvadrato istrizaine yra:" . $this->rezultatas." "."cm"."</p>";
-        }
+        }   
 }
 
     if (isset($_GET["skaiciuoti"])){
