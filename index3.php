@@ -28,10 +28,10 @@
 // 3. Susikurti klasę "Keturkampis". Pagal klasę sukurti objektą.+
 // Objektas turi priimti du kintamuosius: a ir b kraštines.+
 // Sukurti metodus, kurie skaičiuoja kvadrato plotą, perimetrą, įstrižainės ilgį.+
-// Informaciją išvesti į <p> žymę. 
+// Informaciją išvesti į <p> žymę. +
 
 
-// NEBAIGTAS  !!!
+// BAIGTAS  
 
 class Keturkampis {
     private $krastinea;
