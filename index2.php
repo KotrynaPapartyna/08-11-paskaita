@@ -5,18 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trikampis</title>
+    <style>
+        h2 {
+            background-color: crimson;
+            width: fit-content;
+        }
+        p {
+            background-color: darkolivegreen;
+            width: fit-content;
+        }
+    </style>
 </head>
 <body>
 
-<form action="index2.php" action="get">
-    <input type="text" name="a" value="10"/>
-    <input type="text" name="b" value="10"/>
-    <input type="text" name="c" value="10"/>
-     
-    <button id="plotas">Plotas</button>
-    <button id="perimetras">Perimetras</button>
-    <button id="pusperimetris">Pusperimetris</button>
+<h1>Trikampio sudarymas</h1>
 
+<form action="index2.php" action="get">
+    <input type="text" name="a" value="3"/>
+    <input type="text" name="b" value="4"/>
+    <input type="text" name="c" value="5"/>
+     
     <button type="submit" name="skaiciuoti">Skaiciuoti</button>
 
 </form>
@@ -25,75 +33,84 @@
 
 // 2. Susikurti klasę "Trikampis". Pagal klasę sukurti objektą.+
 // Objektas turi priimti du kintamuosius: a, b, c kraštines.+
-// Turi būti tikrinama ar trikampį galima sudaryti.
-// Sukurti metodus, kurie skaičiuoja plotą, perimetrą, 
-// pusperimetrį, bei kiekvieną iš trikampio kampų.
-// Informaciją išvesti į <p> žymę.
+// Turi būti tikrinama ar trikampį galima sudaryti.-
+// Sukurti metodus, kurie skaičiuoja plotą, perimetrą, + (metodai sukurti- tik neskaiciuoja?)
+// pusperimetrį, bei kiekvieną iš trikampio kampų. - (kampai nesutvarkyti)- 
+// Informaciją išvesti į <p> žymę.+
 
 // NEBAIGTAS  !!!
 
 class Trikampis {
-    public $krastinea;
-    public $krastineb;
-    public $krastinec;
+    public $a;
+    public $b;
+    public $c;
     public $plotas; 
     public $perimetras;
     public $pusperimetris;
+    public $rezultatas; 
     
-    function __construct($krastinea, $krastineb, $krastinec) {
+    function __construct($a, $b, $c) {
         
-        $this->krastinea=floatval($krastinea); 
-        $this->krastineb=floatval($krastineb);
-        $this->krastinec=floatval($krastinec);
-    
+        $this->krastinea=floatval($a); 
+        $this->krastineb=floatval($b);
+        $this->krastinec=floatval($c); 
+                 
+        
+    $this->plotas(); 
+    $this->perimetras(); 
+    $this->pusperimetris();     
+       
     }
-           
+
+    public function plotas () {
+        $this->rezultatas = sqrt(($this->pusperimetris *($this->pusperimetris-$this->a)) 
+        *($this->pusperimetris*($this->pusperimetris-$this->b))*
+        ($this->pusperimetris *($this->pusperimetris- $this->c)));
+        echo "<br>"; 
+        echo "<p>"."Trikampio plotas yra:" . $this->rezultatas." "."cm"."</p>";
+        echo "</br>"; 
+        }
     
-function Trikampis() {
-    if ($this->krastinea+$this->krastineb>$this->krastinec 
-        && $this->krastineb+$this->krastinec>$this->krastinea 
-        && $this->krastinec+$this->krastinea>$this->krastineb) {
-        $this->trikampis=true; 
-        echo "Trikampi sudaryti galima"; 
+    public function perimetras () {
+        $this->rezultatas= $this->a+$this->b+$this->c; 
+        echo "<br>";
+        echo "<p>"."Trikampio perimetras yra:" . $this->rezultatas." "."cm"."</p>";
+        echo "</br>";
+        }
+    
+    public function pusperimetris () {
+        $this->rezultatas= $this->pusperimetris/2; 
+        echo "<br>";
+        echo "<p>"."Trikampio pusperimetris yra:" . $this->rezultatas." "."cm"."</p>";
+        echo "</br>";
+        }   
+    } 
+       
+    if (isset($_GET["skaiciuoti"])) {
+        if (isset($_GET["a"]) && !empty($_GET["a"]) 
+        && isset($_GET["b"]) && !empty($_GET["b"])
+        && isset($_GET["c"]) && !empty($_GET["c"])) {
+            $a=$_GET["a"];
+            $b=$_GET["b"];
+            $c=$_GET["c"];
             
-    } else {
-        echo "Trikampis nesusidaro"; 
-    }  
-}
+            if($a + $b > $c && $a + $c > $b && $b + $c > $a) {
+                echo "Trikampis susidaro";
+                echo "<br>";
 
-function plotas () {
-    $this->plotas = sqrt(($this->pusperimetris *($this->pusperimetris-$this->krastinea)) 
-    *($this->pusperimetris*($this->pusperimetris-$this->krastineb))*
-    ($this->pusperimetris *($this->pusperimetris- $this->krastinec)));
-    echo $this->rezultatas."Plotas";
-    }
-
-function perimetras () {
-    $this->perimetras= $this->a+$this->b+$this->c; 
-    echo $this->rezultatas."perimetras";
-    }
-
-function pusperimetris () {
-    $this->pusperimetris= $this->perimetras/2; 
-    echo $this->rezultatas."pusperimetris";
-    }
+                $trikampis = new Trikampis($a, $b, $c);
+                
+        } else {
+            echo "<h2>"."Trikampis nesusidaro"."</h2>";
+        }
+        } else {   
+            echo "<h2>"."Ivesta ne visu krastiniu informacija"."</h2>";
+        }
 
 }
-if (isset ($_GET["skaiciuoti"])) {
-    if(isset($_GET["krastinea"]) && !empty($_GET["krastinea"]) 
-    && isset($_GET["krastineb"]) && !empty($_GET["krastineb"]) 
-    && isset($_GET["krastinec"]) && !empty($_GET["krastinec"])) {
-        $krastinea = $_GET["krastinea"];
-        $krastinea = $_GET["krastineb"];
-        $krastinea = $_GET["krastinec"];
-        $Trikampis = false;
-        $rezultatas;
-        $trikampis=new Trikampis (10,10,10); 
-    
-    } else {
-        echo "Suvesti ne visu krastiniu duomenys"; 
-    }
-}
+   
+  
+
 
 ?>
     
